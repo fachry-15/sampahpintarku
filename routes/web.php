@@ -4,12 +4,11 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardControllers;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardControllers::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 //Register Controllers
 Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');

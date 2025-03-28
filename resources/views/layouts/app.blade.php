@@ -21,7 +21,7 @@
 
 
             <!-- Page Content -->
-            <main class="bg-neutral-900">
+            <main class="bg-white dark:bg-white">
                 {{ $slot }}
             </main>
         </div>
@@ -420,5 +420,18 @@
         })();
       });
     </script>
+    <script>
+        const html = document.querySelector('html');
+        const theme = localStorage.getItem('hs_theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+        if (theme === 'dark' || (theme === 'auto' && prefersDark)) {
+          html.classList.add('dark');
+          html.classList.remove('light');
+        } else {
+          html.classList.add('light');
+          html.classList.remove('dark');
+        }
+      </script>
     </body>
 </html>
