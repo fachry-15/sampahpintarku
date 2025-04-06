@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\history;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class DashboardControllers extends Controller
     public function index()
     {
         $users = User::all();
-        return view('dashboard', compact('users'));
+        $history = history::with('user')->get();
+        return view('dashboard', compact('users', 'history'));
     }
 
     /**

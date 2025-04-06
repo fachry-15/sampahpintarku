@@ -12,7 +12,8 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        //
+        $history = history::with('user')->get();
+        return view('histories', compact('history'));
     }
 
     /**

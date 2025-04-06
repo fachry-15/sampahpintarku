@@ -18,15 +18,9 @@ return new class extends Migration
             $table->string('province');
             $table->string('city');
             $table->string('district');
-            $table->string('sub_district');
             $table->string('village');
-            $table->string('postal_code');
-            $table->string('phone_number');
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->string('photo')->nullable();
-
-
             $table->timestamps();
         });
     }

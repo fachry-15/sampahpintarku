@@ -35,6 +35,9 @@
           <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="#">Tentang</a>
           <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="#">Layanan</a>
           <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="#">Kontak</a>
+          @auth
+          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="{{ route('dashboard') }}">Pusat Monitoring</a>
+          @endauth
         <div>
           <div class="flex items-center gap-2">
             <!-- Tombol Light/Dark Mode -->
@@ -76,9 +79,9 @@
         
             <!-- Tombol Masuk -->
             @auth
-            <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#ff0] font-medium text-sm text-neutral-800 rounded-full focus:outline-none" href="{{ route('dashboard') }}">
+            <p class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#ff0] font-medium text-sm text-neutral-800 rounded-full focus:outline-none">
               {{ explode(' ', Auth::user()->name)[0] }}
-            </a>
+            </p>
           @else
             <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#ff0] font-medium text-sm text-neutral-800 rounded-full focus:outline-none" href="{{ route('login') }}">
               Masuk

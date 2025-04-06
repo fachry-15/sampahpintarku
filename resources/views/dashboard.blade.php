@@ -114,7 +114,7 @@
           <!-- End Card -->
         </div>
   
-        <!-- Card -->
+        <!-- Card users -->
         <div class="flex flex-col">
           <div class="-m-1.5 overflow-x-auto">
             <div class="p-1.5 min-w-full inline-block align-middle">
@@ -148,7 +148,7 @@
                 </div>
                 <!-- End Header -->
   
-                <!-- Table -->
+                <!-- Table users -->
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
                   <thead class="bg-gray-50 dark:bg-neutral-800">
                     <tr>
@@ -291,7 +291,7 @@
                     @endforeach
                   </tbody>
                 </table>
-                <!-- End Table -->
+                <!-- End Table users -->
   
                 <!-- Footer -->
                 <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
@@ -324,7 +324,120 @@
             </div>
           </div>
         </div>
-        <!-- End Card -->
+        <!-- End Card users -->
+
+         <!-- Card users -->
+         <div class="flex flex-col">
+          <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+              <div class="bg-white border border-gray-200 rounded-xl shadow-2xs overflow-hidden dark:bg-neutral-800 dark:border-neutral-700">
+                <!-- Header -->
+                <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-700">
+                  <div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-neutral-200">
+                      Data Histori Sampah
+                    </h2>
+                    <p class="text-sm text-gray-600 dark:text-neutral-400">
+                      Data histori debit sampah anda 10 hari terakhir
+                    </p>
+                  </div>
+  
+                  <div>
+          
+                  </div>
+                </div>
+                <!-- End Header -->
+  
+                <!-- Table users -->
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                  <thead class="bg-gray-50 dark:bg-neutral-800">
+                    <tr>
+                      <th scope="col" class="ps-6 py-3 text-start">
+                        <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                          No.
+                        </span>
+                      </th>
+  
+                      <th scope="col" class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
+                        <div class="flex items-center gap-x-2">
+                          <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                            Debit Sampah Organik
+                          </span>
+                        </div>
+                      </th>
+  
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <div class="flex items-center gap-x-2">
+                          <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                            Debit Sampah Anorganik
+                          </span>
+                        </div>
+                      </th>
+
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <div class="flex items-center gap-x-2">
+                          <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                            Tanggal
+                          </span>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+  
+                  <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                  @if ($history->isEmpty())
+                  <tr>
+                    <td colspan="4" class="text-center py-4">
+                      <span class="text-sm text-gray-500 dark:text-neutral-500">Mohon maaf, belum ada data debit sampah yang masuk.</span>
+                    </td>
+                  </tr>
+                  @else
+                    @foreach ($history as $data)
+                    <tr>
+                      <td class="size-px whitespace-nowrap">
+                        <div class="ps-6 py-3">
+                            <span class="text-sm text-gray-800 dark:text-neutral-200">{{ $loop->iteration }}.</span>
+                        </div>
+                      </td>
+                      <td class="h-px w-72 whitespace-nowrap">
+                        <div class="px-6 py-3">
+                            <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $data->debit_organik }}</span>
+                        </div>
+                      </td>
+                      <td class="h-px w-72 whitespace-nowrap">
+                        <div class="px-6 py-3">
+                            <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $data->debit_anorganik }}</span>
+                        </div>
+                      </td>
+                      <td class="size-px whitespace-nowrap">
+                        <div class="px-6 py-3">
+                          <span class="text-sm text-gray-500 dark:text-neutral-500">{{ $data->created_at->format('d M, H:i') }}</span>
+                        </div>
+                      </td>
+                    </tr>
+                    @endforeach
+                  @endif
+                  </tbody>
+                </table>
+                <!-- End Table users -->
+  
+                <!-- Footer -->
+                <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
+                  <div>
+                    <p class="text-sm text-gray-600 dark:text-neutral-400">
+                      <span class="font-semibold text-gray-800 dark:text-neutral-200">12</span> results
+                    </p>
+                  </div>
+  
+                  <div>
+                  </div>
+                </div>
+                <!-- End Footer -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Card users -->
       </div>
     </div>
     <!-- End Content -->

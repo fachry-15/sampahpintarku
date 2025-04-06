@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('provider')->nullable(); // Menyimpan sumber login (Google, manual, dll.)
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('status')->default(0); // 1: Aktif, 0: Tidak aktif
+            $table->string('phone_number')->nullable();
+            $table->string('photo')->nullable(); // Menyimpan URL atau path foto pengguna
             $table->rememberToken();
             $table->timestamps();
         });
