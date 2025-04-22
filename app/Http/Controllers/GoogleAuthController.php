@@ -46,10 +46,16 @@ class GoogleAuthController extends Controller
 
             Auth::login($user);
 
-            return redirect()->route('home')->with('success', 'Terima kasih, akun Anda berhasil ditambahkan.');
+            return back()->with('notify', [
+                'type' => 'success',
+                'message' => 'Berhasil login atau akun Anda berhasil ditambahkan.',
+            ]);
         } catch (\Exception $e) {
             Log::error('Google login error: ' . $e->getMessage());
-            return redirect()->route('login')->with('error', 'Mohon maaf, Akun anda belum berhasil dibuat');
+            return redirect()->route('login')->with('notify', [
+                'type' => 'error',
+                'message' => 'Mohon maaf, terjadi kesalahan saat memproses akun Anda.',
+            ]);
         }
     }
 

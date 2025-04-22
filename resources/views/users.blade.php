@@ -84,6 +84,13 @@
                       </span>
                   </div>
               </th>
+              <th scope="col" class="px-6 py-3 text-start">
+                <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
+                        Role
+                    </span>
+                </div>
+            </th>
                   <th scope="col" class="px-6 py-3 text-start">
                     <div class="flex items-center gap-x-2">
                       <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
@@ -141,6 +148,11 @@
                             Belum Diaktivasi
                         </span>
                     @endif
+                  </td>
+                  <td class="size-px whitespace-nowrap">
+                    <div class="px-6 py-3">
+                        <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $data->getRoleNames()->implode(', ') }}</span>
+                    </div>
                   </td>
                   <td class="size-px whitespace-nowrap">
                     <div class="px-6 py-1.5 flex gap-2">

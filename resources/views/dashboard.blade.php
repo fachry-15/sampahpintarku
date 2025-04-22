@@ -9,7 +9,7 @@
             <div class="p-4 md:p-5">
               <div class="flex items-center gap-x-2">
                 <p class="text-xs font-bold uppercase text-gray-500 dark:text-neutral-500">
-                  Debit Sampah
+                  Debit Sampah Organik
                 </p>
                 <div class="hs-tooltip">
                   <div class="hs-tooltip-toggle">
@@ -19,7 +19,7 @@
                       <path d="M12 17h.01" />
                     </svg>
                     <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700" role="tooltip">
-                      Jumlah debit sampah terakhir saat ini
+                      Jumlah debit sampah organik terakhir saat ini
                     </span>
                   </div>
                 </div>
@@ -27,7 +27,11 @@
   
               <div class="mt-1 flex items-center gap-x-2">
                 <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                  72,540
+                  @if ($detail && $detail->debit_organik)
+                    {{$detail->debit_organik}} %
+                  @else
+                    Belum ada
+                  @endif
                 </h3>
                 </span>
               </div>
@@ -40,13 +44,31 @@
             <div class="p-4 md:p-5">
               <div class="flex items-center gap-x-2">
                 <p class="text-xs font-bold uppercase text-gray-500 dark:text-neutral-500">
-                  Jadwal Pengambilan Terdekat
+                  Debit Sampah Anorganik
                 </p>
+                <div class="hs-tooltip">
+                  <div class="hs-tooltip-toggle">
+                    <svg class="shrink-0 size-4 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                      <path d="M12 17h.01" />
+                    </svg>
+                    <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700" role="tooltip">
+                      Jumlah debit sampah anorganik terakhir saat ini
+                    </span>
+                  </div>
+                </div>
               </div>
+  
               <div class="mt-1 flex items-center gap-x-2">
                 <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                  2 Hari Lagi
+                    @if ($detail && $detail->debit_anorganik)
+                    {{$detail->debit_anorganik}} %
+                    @else
+                    Belum ada
+                    @endif
                 </h3>
+                </span>
               </div>
             </div>
           </div>
@@ -56,8 +78,8 @@
           <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
             <div class="p-4 md:p-5">
               <div class="flex items-center gap-x-2">
-                <p class="text-xs uppercase text-gray-500 dark:text-neutral-500">
-                  Pesan Belum Dibalas
+                <p class="text-xs font-bold uppercase text-gray-500 dark:text-neutral-500">
+                  Jadwal Pengambilan
                 </p>
               </div>
   
@@ -74,14 +96,14 @@
           <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
             <div class="p-4 md:p-5">
               <div class="flex items-center gap-x-2">
-                <p class="text-xs uppercase text-gray-500 dark:text-neutral-500">
-                  Pesan sudah dibalas
+                <p class="text-xs font-bold uppercase text-gray-500 dark:text-neutral-500">
+                  Pesan Belum Dibalas
                 </p>
               </div>
   
               <div class="mt-1 flex items-center gap-x-2">
                 <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                  1 pesan
+                  1 Pesan
                 </h3>
               </div>
             </div>
@@ -97,15 +119,57 @@
             <!-- Header -->
             <div class="flex flex-wrap justify-between items-center gap-2">
               <div>
-          <h2 class="text-sm text-gray-500 dark:text-neutral-500">
-            Data Sampah Anda
-          </h2>
-          <p class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-            30 %
-          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <h2 class="text-sm text-gray-500 dark:text-neutral-500">
+                Debit Sampah Organik
+              </h2>
+                <p class="text-xl sm:text-2xl font-medium">
+                @if ($detail && $detail->debit_organik > 60)
+                  <span class="text-red-600 dark:text-red-400">
+                  {{$detail->debit_organik}} %
+                  </span>
+                @elseif ($detail && $detail->debit_organik > 40)
+                  <span class="text-yellow-600 dark:text-yellow-400">
+                  {{$detail->debit_organik}} %
+                  </span>
+                @elseif ($detail)
+                  <span class="text-green-600 dark:text-green-400">
+                  {{$detail->debit_organik}} %
+                  </span>
+                @else
+                  <span class="text-gray-500 dark:text-neutral-500">
+                  Belum ada data
+                  </span>
+                @endif
+                </p>
+            </div>
+            <div>
+              <h2 class="text-sm text-gray-500 dark:text-neutral-500">
+                Debit Sampah Anorganik
+              </h2>
+              <p class="text-xl sm:text-2xl font-medium text-blue-600 dark:text-blue-400">
+                @if ($detail && $detail->debit_anorganik > 60)
+                  <span class="text-red-600 dark:text-red-400">
+                  {{$detail->debit_anorganik}} %
+                  </span>
+                @elseif ($detail && $detail->debit_anorganik > 40)
+                  <span class="text-yellow-600 dark:text-yellow-400">
+                  {{$detail->debit_anorganik}} %
+                  </span>
+                @elseif ($detail)
+                  <span class="text-green-600 dark:text-green-400">
+                  {{$detail->debit_anorganik}} %
+                  </span>
+                @else
+                  <span class="text-gray-500 dark:text-neutral-500">
+                  Belum ada data
+                  </span>
+                @endif
+              </p>
+            </div>
+          </div>
               </div>
-        
-             
             </div>
             <!-- End Header -->
         
@@ -173,14 +237,6 @@
                           </span>
                         </div>
                       </th>
-
-                      <th scope="col" class="px-6 py-3 text-start">
-                        <div class="flex items-center gap-x-2">
-                          <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                            Lokasi
-                          </span>
-                        </div>
-                      </th>
   
                       <th scope="col" class="px-6 py-3 text-start">
                         <div class="flex items-center gap-x-2">
@@ -193,7 +249,7 @@
                       <th scope="col" class="px-6 py-3 text-start">
                         <div class="flex items-center gap-x-2">
                           <span class="text-xs font-semibold uppercase text-gray-800 dark:text-neutral-200">
-                            Created
+                            Ditambahkan
                           </span>
                         </div>
                       </th>
@@ -237,15 +293,10 @@
                       </td>
                       <td class="h-px w-72 whitespace-nowrap">
                         <div class="px-6 py-3">
-                            <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $user->getRoleNames()->join(', ') }}</span>
-                        </div>
-                      </td>
-                      <td class="size-px whitespace-nowrap">
-                        <div class="px-6 py-3">
-                          @if ($user->location)
-                            <span class="text-sm text-gray-500 dark:text-neutral-500">{{ $user->location }}</span>
+                          @if ($user->getRoleNames()->isEmpty())
+                            <span class="block text-sm text-gray-500 dark:text-neutral-500">Belum ada role</span>
                           @else
-                            <span class="text-sm text-gray-500 dark:text-neutral-500">Lokasi belum ditempatkan</span>
+                            <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $user->getRoleNames()->join(', ') }}</span>
                           @endif
                         </div>
                       </td>
@@ -392,7 +443,7 @@
                     </td>
                   </tr>
                   @else
-                    @foreach ($history as $data)
+                    @foreach ($grafik as $data)
                     <tr>
                       <td class="size-px whitespace-nowrap">
                         <div class="ps-6 py-3">
@@ -425,7 +476,7 @@
                 <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
                   <div>
                     <p class="text-sm text-gray-600 dark:text-neutral-400">
-                      <span class="font-semibold text-gray-800 dark:text-neutral-200">12</span> results
+                      <span class="font-semibold text-gray-800 dark:text-neutral-200">10</span> Data terakhir Sampah Anda
                     </p>
                   </div>
   
@@ -441,4 +492,205 @@
       </div>
     </div>
     <!-- End Content -->
+    <script>
+      window.addEventListener("load", () => {
+        (function () {
+          buildChart(
+            "#hs-single-area-chart",
+            (mode) => ({
+              chart: {
+                height: 300,
+                type: "area",
+                toolbar: {
+                  show: false,
+                },
+                zoom: {
+                  enabled: false,
+                },
+              },
+             series: [
+  {
+    name: "Debit Organik",
+    data: [
+      @foreach ($grafik as $item)
+        {{ $item->debit_organik }},
+      @endforeach
+    ],
+  },
+  {
+    name: "Debit Anorganik",
+    data: [
+      @foreach ($grafik as $item)
+        {{ $item->debit_anorganik }},
+      @endforeach
+    ],
+  },
+],
+
+              legend: {
+                show: false,
+              },
+              dataLabels: {
+                enabled: false,
+              },
+              stroke: {
+                curve: "straight",
+                width: 2,
+              },
+              grid: {
+                strokeDashArray: 2,
+              },
+              fill: {
+                type: "gradient",
+                gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  opacityFrom: 0.1,
+                  opacityTo: 0.8,
+                },
+              },
+              xaxis: {
+                type: "category",
+                tickPlacement: "on",
+                categories: [
+                  @foreach ($grafik as $item)
+                  "{{ $item->created_at->format('d F Y') }}",
+                  @endforeach
+                ],
+                axisBorder: {
+                  show: false,
+                },
+                axisTicks: {
+                  show: false,
+                },
+                crosshairs: {
+                  stroke: {
+                    dashArray: 0,
+                  },
+                  dropShadow: {
+                    show: false,
+                  },
+                },
+                tooltip: {
+                  enabled: false,
+                },
+                labels: {
+                  style: {
+                    colors: "#9ca3af",
+                    fontSize: "13px",
+                    fontFamily: "Inter, ui-sans-serif",
+                    fontWeight: 400,
+                  },
+                  formatter: (title) => {
+                    let t = title;
+  
+                    if (t) {
+                      const newT = t.split(" ");
+                      t = `${newT[0]} ${newT[1].slice(0, 3)}`;
+                    }
+  
+                    return t;
+                  },
+                },
+              },
+              yaxis: {
+                labels: {
+                  align: "left",
+                  minWidth: 0,
+                  maxWidth: 140,
+                  style: {
+                    colors: "#9ca3af",
+                    fontSize: "13px",
+                    fontFamily: "Inter, ui-sans-serif",
+                    fontWeight: 400,
+                  },
+                  formatter: (value) => (value >= 1000 ? `${value / 1000}k` : value),
+                },
+              },
+              tooltip: {
+                x: {
+                  format: "MMMM yyyy",
+                },
+                y: {
+                  formatter: (value) =>
+                    `${value >= 1000 ? `${value / 1000}k` : value}`,
+                },
+                custom: function (props) {
+                  const { categories } = props.ctx.opts.xaxis;
+                  const { dataPointIndex } = props;
+                  const title = categories[dataPointIndex].split(" ");
+                  const newTitle = `${title[0]} ${title[1]}`;
+  
+                  return buildTooltip(props, {
+                    title: newTitle,
+                    mode,
+                    valuePrefix: "",
+                    hasTextLabel: true,
+                    markerExtClasses: "rounded-sm!",
+                    wrapperExtClasses: "min-w-28",
+                  });
+                },
+              },
+              responsive: [
+                {
+                  breakpoint: 568,
+                  options: {
+                    chart: {
+                      height: 300,
+                    },
+                    labels: {
+                      style: {
+                        colors: "#9ca3af",
+                        fontSize: "11px",
+                        fontFamily: "Inter, ui-sans-serif",
+                        fontWeight: 400,
+                      },
+                      offsetX: -2,
+                      formatter: (title) => title.slice(0, 3),
+                    },
+                    yaxis: {
+                      labels: {
+                        align: "left",
+                        minWidth: 0,
+                        maxWidth: 140,
+                        style: {
+                          colors: "#9ca3af",
+                          fontSize: "11px",
+                          fontFamily: "Inter, ui-sans-serif",
+                          fontWeight: 400,
+                        },
+                        formatter: (value) =>
+                          value >= 1000 ? `${value / 1000}k` : value,
+                      },
+                    },
+                  },
+                },
+              ],
+            }),
+            {
+              colors: ["#2563eb", "#9333ea"],
+              fill: {
+                gradient: {
+                  stops: [0, 90, 100],
+                },
+              },
+              grid: {
+                borderColor: "#e5e7eb",
+              },
+            },
+            {
+              colors: ["#3b82f6", "#a855f7"],
+              fill: {
+                gradient: {
+                  stops: [100, 90, 0],
+                },
+              },
+              grid: {
+                borderColor: "#404040",
+              },
+            }
+          );
+        })();
+      });
+    </script>
 </x-app-layout>

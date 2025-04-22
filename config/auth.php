@@ -42,6 +42,11 @@ return [
         ],
     ],
 
+    'api' => [
+        'driver' => 'passport', // Jika menggunakan Passport
+        'provider' => 'users',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | User Providers

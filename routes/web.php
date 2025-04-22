@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +18,12 @@ Route::get('/history', [HistoryController::class, 'index'])->middleware(['auth',
 
 Route::get('/pesan', [PesanController::class, 'index'])->middleware(['auth', 'verified'])->name('pesan.index');
 
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 //Register Controllers
 Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+Route::get('auth/google/logout', [GoogleAuthController::class, 'logout'])->name('google.logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/{id}/edit', [UsersController::class, 'edit'])->name('user.edit');
     Route::get('/user/{id}/activate', [UsersController::class, 'activation'])->name('user.activate');
     Route::patch('/user/{id}/update-activation', [UsersController::class, 'updateActivation'])->name('user.updateActivation');
+    Route::patch('/user/{id}', [UsersController::class, 'update'])->name('user.update');
 });
 
 require __DIR__ . '/auth.php';

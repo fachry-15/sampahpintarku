@@ -13,9 +13,12 @@ class DashboardControllers extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::with('informationsuser')->latest()->take(5)->get();
+        $grafik = history::with('user')->latest()->take(10)->get();
         $history = history::with('user')->get();
-        return view('dashboard', compact('users', 'history'));
+
+        $detail = $history->where('user_id', auth()->user()->id)->last();
+        return view('dashboard', compact('users', 'history', 'detail', 'grafik'));
     }
 
     /**

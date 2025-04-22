@@ -151,17 +151,17 @@
                     </td>
                     <td class="h-px w-72 whitespace-nowrap">
                       <div class="px-6 py-3">
-                          <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $data->debit_organik }}</span>
+                          <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $data->debit_organik }} %</span>
                       </div>
                     </td>
                     <td class="h-px w-72 whitespace-nowrap">
                       <div class="px-6 py-3">
-                          <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $data->debit_anorganik }}</span>
+                          <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{ $data->debit_anorganik }} %</span>
                       </div>
                     </td>
                     <td class="size-px whitespace-nowrap">
                       <div class="px-6 py-3">
-                        <span class="text-sm text-gray-500 dark:text-neutral-500">{{ $data->created_at->format('d M, H:i') }}</span>
+                        <span class="text-sm text-gray-500 dark:text-neutral-500">{{ $data->created_at->setTimezone('Asia/Jakarta')->format('d M Y, H:i') }}</span>
                       </div>
                     </td>
                   </tr>

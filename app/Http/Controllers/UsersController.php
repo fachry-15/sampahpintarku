@@ -6,6 +6,8 @@ use App\Models\InformationsUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
+use Mckenziearts\Notify\LaravelNotify;
 
 class UsersController extends Controller
 {
@@ -53,10 +55,16 @@ class UsersController extends Controller
                 'village' => $request->village,
             ]);
 
-            return redirect()->route('users.index')->with('success', 'User activation updated successfully.');
+            return redirect()->route('user.index')->with('notify', [
+                'type' => 'success',
+                'message' => 'Terima kasih, aktivasi user berhasil diaktivasi.',
+            ]);
         } catch (\Exception $e) {
             Log::error('Error updating user activation: ' . $e->getMessage(), ['exception' => $e]);
-            return redirect()->back()->withErrors(['error' => 'An error occurred while updating user activation. Please try again later.']);
+            return redirect()->back()->with('notify', [
+                'type' => 'error',
+                'message' => 'Terjadi kesalahan saat memperbarui aktivasi user.',
+            ]);
         }
     }
 
@@ -89,17 +97,55 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        $roles = Role::all();
         $users = User::with('informationsUser')->find($id);
-        return view('editusers', compact('users'));
+        return view('editusers', compact('users', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'status' => 'required|boolean',
+            'alamat' => 'required|string',
+            'role' => 'nullable|string',
+        ]);
+
+        try {
+            $user = User::findOrFail($id);
+            $user->status = $request->status;
+            $user->save();
+
+            $informationUser = InformationsUser::where('user_id', $id)->first();
+            if ($informationUser) {
+                $informationUser->address = $request->alamat;
+                $informationUser->save();
+            } else {
+                InformationsUser::create([
+                    'user_id' => $id,
+                    'address' => $request->alamat,
+                ]);
+            }
+
+            if ($request->role) {
+                $user->syncRoles([$request->role]);
+            }
+
+            return redirect()->route('user.index')->with('notify', [
+                'type' => 'success',
+                'message' => 'Terima kasih, data user berhasil diperbarui.',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error updating user information: ' . $e->getMessage(), ['exception' => $e]);
+            return redirect()->back()->with('notify', [
+                'type' => 'error',
+                'message' => 'Terjadi kesalahan saat memperbarui data user.',
+            ]);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

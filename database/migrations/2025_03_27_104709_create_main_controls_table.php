@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('debit_max_organik');
             $table->integer('debit_max_anorganik');
-            $table->integer('delay_pengambilan');
+            $table->integer('waktu_pengambilan');
             $table->timestamps();
         });
     }
