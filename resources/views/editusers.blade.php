@@ -39,11 +39,11 @@
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mt-6">
                 <div>
                     <label for="latitude" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">Latitude</label>
-                    <input type="text" name="latitude" id="latitude" value="{{$users->informationsUser->latitude}}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:border-gray-300 focus:ring-0 dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-200" readonly>
+                    <input type="text" name="latitude" id="latitude" value="{{ $users->informationsUser->latitude ?? 'Belum ada latitude' }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:border-gray-300 focus:ring-0 dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-200" readonly>
                 </div>
                 <div>
                     <label for="longitude" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">Longitude</label>
-                    <input type="text" name="longitude" id="longitude" value="{{$users->informationsUser->longitude}}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:border-gray-300 focus:ring-0 dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-200" readonly>
+                    <input type="text" name="longitude" id="longitude" value="{{ $users->informationsUser->longitude ?? 'Belum ada longitude' }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 focus:border-gray-300 focus:ring-0 dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-200" readonly>
                 </div>
             </div>
             <form action="{{ route('user.update', ['id' => $users->id]) }}" method="POST">
@@ -53,7 +53,8 @@
                 <div class="grid grid-cols-1 gap-6 mt-6">
                     <div>
                         <label for="alamat" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">Alamat Lengkap</label>
-                        <input type="text" name="alamat" id="alamat" value="{{$users->informationsUser->address}}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-200" required>
+                        <input type="text" name="alamat" id="alamat" value="{{ $users->informationsUser->address ?? 'Belum ada alamat' }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-200" required>
+                    </div>
                     <small class="block mt-1 text-xs text-gray-500 dark:text-neutral-400">
                         *Pastikan alamat yang anda berikan sudah benar dan lengkap secara keseluruhan.
                     </small>

@@ -33,6 +33,20 @@ class HistoriesController extends Controller
     }
 
     /**
+     * Get the current server time.
+     */
+    public function now()
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'Current server time',
+            'data' => [
+                'now' => now()->toDateTimeString(),
+            ],
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)

@@ -39,7 +39,7 @@ class PesanController extends Controller
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
         ]);
 
-        dd($request->all());
+
         // dd($request->file('lampiran'));
 
         try {

@@ -11,7 +11,7 @@
               </svg>
             </li>
             <li class="inline-flex items-center text-sm font-semibold text-gray-800 truncate dark:text-neutral-200" aria-current="page">
-              Daftar Pesan
+              Daftar Akun pengguna
             </li>
           </ol>
         <div class="text-left py-4">

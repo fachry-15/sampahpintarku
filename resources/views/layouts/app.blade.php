@@ -14,8 +14,8 @@
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
         <script src="https://unpkg.com/preline@latest"></script>
-        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css">
+
         <script src="https://cdn.jsdelivr.net/npm/lodash/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.21.0/ckeditor.js" integrity="sha512-ff67djVavIxfsnP13CZtuHqf7VyX62ZAObYle+JlObWZvS4/VQkNVaFBOO6eyx2cum8WtiZ0pqyxLCQKC7bjcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -23,6 +23,7 @@
         crossorigin=""></script>
         <!-- Scripts -->
         <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css">
+        
     </head>
     <body class="font-sans antialiased">
       @if (session('notify.message'))
@@ -111,8 +112,6 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash/lodash.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/preline/dist/helper-apexcharts.js"></script>
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/lodash/lodash.min.js"></script>
     <script>
         const html = document.querySelector('html');

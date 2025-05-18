@@ -4,8 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e95ba1b4d41e4460cf21a2a11848125",
+    "content-hash": "92b3d67e752a0510f333b752d9486cb0",
     "packages": [
+        {
+            "name": "aphisitworachorch/kacher",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aphisitworachorch/kacher.git",
+                "reference": "7f1389841cfa0f82b452d3b3bae9e29ba2531d95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aphisitworachorch/kacher/zipball/7f1389841cfa0f82b452d3b3bae9e29ba2531d95",
+                "reference": "7f1389841cfa0f82b452d3b3bae9e29ba2531d95",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.37|^11.0|^12.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0|^9.0|^10.0"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Aphisitworachorch\\Kacher\\KacherServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aphisitworachorch\\Kacher\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arsanandha Aphisitworachorch",
+                    "email": "arsanandha.ap@gmail.com"
+                }
+            ],
+            "description": "Kacher is Laravel DB to DBML (dbdiagram.io/dbdocs.io)",
+            "keywords": [
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/aphisitworachorch/kacher/issues",
+                "source": "https://github.com/aphisitworachorch/kacher/tree/v1.3"
+            },
+            "time": "2025-02-25T02:35:43+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.2",
@@ -5901,16 +5955,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.2.4",
+            "version": "v7.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf"
+                "reference": "87b7c93e57df9d8e39a093d32587702380ff045d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf",
-                "reference": "d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf",
+                "url": "https://api.github.com/repos/symfony/process/zipball/87b7c93e57df9d8e39a093d32587702380ff045d",
+                "reference": "87b7c93e57df9d8e39a093d32587702380ff045d",
                 "shasum": ""
             },
             "require": {
@@ -5942,7 +5996,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.2.4"
+                "source": "https://github.com/symfony/process/tree/v7.2.5"
             },
             "funding": [
                 {
@@ -5958,7 +6012,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-05T08:33:46+00:00"
+            "time": "2025-03-13T12:21:46+00:00"
         },
         {
             "name": "symfony/routing",

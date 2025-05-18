@@ -89,41 +89,26 @@
                                   <label for="lampiran" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
                                     Lampiran
                                   </label>
-                                  <div data-hs-file-upload='{
-                                    "url": "/upload",
-                                    "extensions": {
-                                      "default": {
-                                        "class": "shrink-0 size-5"
-                                      },
-                                      "xls": {
-                                        "class": "shrink-0 size-5"
-                                      },
-                                      "zip": {
-                                        "class": "shrink-0 size-5"
-                                      },
-                                      "csv": {
-                                        "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4\"/><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"m5 12-3 3 3 3\"/><path d=\"m9 18 3-3-3-3\"/></svg>",
-                                        "class": "shrink-0 size-5"
-                                      }
-                                    }
-                                  }'>
-                                    <template data-hs-file-upload-preview="">
+                              
+                                  <div data-hs-file-upload>
+                                    <!-- preview template Preline (dengan SVG lengkap) -->
+                                    <template data-hs-file-upload-preview>
                                       <div class="p-3 bg-white border border-solid border-gray-300 rounded-xl dark:bg-neutral-800 dark:border-neutral-600">
                                         <div class="mb-1 flex justify-between items-center">
                                           <div class="flex items-center gap-x-3">
-                                            <span class="size-10 flex justify-center items-center border border-gray-200 text-gray-500 rounded-lg dark:border-neutral-700 dark:text-neutral-500" data-hs-file-upload-file-icon="">
-                                              <img class="rounded-lg hidden" data-dz-thumbnail="">
+                                            <span class="size-10 flex justify-center items-center border border-gray-200 text-gray-500 rounded-lg dark:border-neutral-700 dark:text-neutral-500" data-dz-file-thumbnail>
+                                              <img class="rounded-lg hidden" data-dz-thumbnail>
                                             </span>
                                             <div>
                                               <p class="text-sm font-medium text-gray-800 dark:text-white">
-                                                <span class="truncate inline-block max-w-75 align-bottom" data-hs-file-upload-file-name=""></span>.<span data-hs-file-upload-file-ext=""></span>
+                                                <span class="truncate inline-block max-w-75 align-bottom" data-dz-name></span>
                                               </p>
-                                              <p class="text-xs text-gray-500 dark:text-neutral-500" data-hs-file-upload-file-size=""></p>
+                                              <p class="text-xs text-gray-500 dark:text-neutral-500" data-dz-size></p>
                                             </div>
                                           </div>
-                                          <div class="flex items-center gap-x-2">
-                                            <button type="button" class="text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200" data-hs-file-upload-remove="">
-                                              <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <div class="flex items-center gap-x-2">
+                                            <button type="button" class="text-gray-500 hover:text-gray-800 dark:text-neutral-500" data-dz-remove>
+                                              <svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M3 6h18"></path>
                                                 <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
                                                 <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
@@ -131,52 +116,34 @@
                                                 <line x1="14" x2="14" y1="11" y2="17"></line>
                                               </svg>
                                             </button>
-                                          </div>
+                                            </div>
                                         </div>
-                                  
-                                        <div class="flex items-center gap-x-3 whitespace-nowrap">
-                                          <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-hs-file-upload-progress-bar="">
-                                            <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition-all duration-500 hs-file-upload-complete:bg-green-500" style="width: 0" data-hs-file-upload-progress-bar-pane=""></div>
-                                          </div>
-                                          <div class="w-10 text-end">
-                                            <span class="text-sm text-gray-800 dark:text-white">
-                                              <span data-hs-file-upload-progress-bar-value="">0</span>%
-                                            </span>
-                                          </div>
-                                        </div>
+                                
                                       </div>
                                     </template>
-                                  
-                                    <div class="cursor-pointer p-12 flex justify-center bg-white border border-dashed border-gray-300 rounded-xl dark:bg-neutral-800 dark:border-neutral-600" data-hs-file-upload-trigger="">
+                                
+                                    <!-- trigger area Preline -->
+                                    <div class="cursor-pointer p-12 flex justify-center bg-white border border-dashed border-gray-300 rounded-xl dark:bg-neutral-800" data-hs-file-upload-trigger>
                                       <div class="text-center">
-                                        <span class="inline-flex justify-center items-center size-16 bg-gray-100 text-gray-800 rounded-full dark:bg-neutral-700 dark:text-neutral-200">
-                                          <svg class="shrink-0 size-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <span class="inline-flex justify-center items-center size-16 bg-gray-100 text-gray-800 rounded-full dark:bg-neutral-700">
+                                          <svg class="shrink-0 size-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                             <polyline points="17 8 12 3 7 8"></polyline>
-                                            <line x1="12" x2="12" y1="3" y2="15"></line>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
                                           </svg>
                                         </span>
-                                  
-                                        <div class="mt-4 flex flex-wrap justify-center text-sm/6 text-gray-600">
-                                          <span class="pe-1 font-medium text-gray-800 dark:text-neutral-200">
-                                            Lampirkan file atau gambar terkait disini atau
-                                          </span>
-                                          <span class="bg-white font-semibold text-blue-600 hover:text-blue-700 rounded-lg decoration-2 hover:underline focus-within:outline-hidden focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 dark:bg-neutral-800 dark:text-blue-500 dark:hover:text-blue-600">pilih file</span>
+                                        <div class="mt-4 text-sm text-gray-600">
+                                          <span class="font-medium text-gray-800 dark:text-neutral-200">Lampirkan file</span> atau klik
                                         </div>
-                                  
-                                        <p class="mt-1 text-xs text-gray-400 dark:text-neutral-400">
-                                          Maksimal ukuran file yang dapat diupload adalah 2 MB
-                                        </p>
+                                        <p class="mt-1 text-xs text-gray-400 dark:text-neutral-400">Maksimal 2 MB</p>
                                       </div>
                                     </div>
-                                  
-                                    <div class="mt-4 space-y-2 empty:mt-0" data-hs-file-upload-previews=""></div>
-                                  </div>
-                                  <small class="text-gray-500 dark:text-neutral-400">
-                                    * Lampiran bersifat opsional. Anda dapat mengosongkannya jika tidak diperlukan.
-                                  </small>
+                                
+                                    <!-- tempat preview Preline -->
+                                    <div class="mt-4 space-y-2" data-hs-file-upload-previews></div>
+                                  </div> 
+                                  <small class="text-gray-500">* Lampiran bersifat opsional.</small>
                                 </div>
-                                <input type="file" name="lampiran" id="lampiran" hidden>
 
                                 <!-- Tanggal Mulai dan Tanggal Akhir -->
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -394,33 +361,44 @@
   <!-- End Table Section -->
         </div>
     </div>
-    <script>
-      CKEDITOR.replace('isi-pesan');
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const fileUploadContainer = document.querySelector("[data-hs-file-upload]");
-    const hiddenFileInput = document.getElementById("lampiran");
-
-    if (!fileUploadContainer || !hiddenFileInput) return;
-
-    // Preline memiliki event khusus untuk perubahan file
-    fileUploadContainer.addEventListener("hs.fileUpload.add", function (event) {
-        const files = event.detail.files; // Ambil file dari event Preline
-        if (files.length > 0) {
-            setFiles(hiddenFileInput, files);
-        }
-    });
-
-    // Fungsi untuk menetapkan file ke input hidden
-    function setFiles(input, files) {
-        const dataTransfer = new DataTransfer();
-        for (let file of files) {
-            dataTransfer.items.add(file);
-        }
-        input.files = dataTransfer.files;
-    }
-});
-
-  </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+      <script>
+        Dropzone.autoDiscover = false;
+        const previewTpl = document.querySelector('template[data-hs-file-upload-preview]').innerHTML;
+      
+        new Dropzone("[data-hs-file-upload]", {
+          url: "#",
+          autoProcessQueue: false,
+          clickable: "[data-hs-file-upload-trigger]",
+          previewsContainer: "[data-hs-file-upload-previews]",
+          previewTemplate: previewTpl,
+          maxFiles: 1,
+          maxFilesize: 2,
+          acceptedFiles: "image/*,application/pdf",
+          init() {
+            this.on("addedfile", file => {
+              // langsung full progress & sukses
+              this.emit("uploadprogress", file, 100, file.size);
+              this.emit("success", file);
+              this.emit("complete", file);
+            });
+      
+            const form = this.element.closest('form');
+            form.addEventListener('submit', () => {
+              this.getAcceptedFiles().forEach(file => {
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                const inp = document.createElement('input');
+                inp.type = 'file';
+                inp.name = 'lampiran';
+                inp.files = dt.files;
+                inp.hidden = true;
+                form.appendChild(inp);
+              });
+            });
+          }
+        });
+      </script>
+      
+    
 </x-app-layout>

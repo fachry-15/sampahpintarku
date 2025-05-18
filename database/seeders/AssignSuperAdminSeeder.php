@@ -14,22 +14,27 @@ class AssignSuperAdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Cari user dengan ID 1
-        $user = User::find(1);
+        // IDs of users to assign the Super Admin role
+        $userIds = [1, 2];
 
-        if ($user) {
-            // Pastikan role Super Admin sudah ada
-            $role = Role::firstOrCreate(['name' => 'superadmin']);
+        foreach ($userIds as $id) {
+            // Find user by ID
+            $user = User::find($id);
 
-            // Berikan role Super Admin ke user ID 1
-            $user->assignRole($role);
+            if ($user) {
+                // Ensure the Super Admin role exists
+                $role = Role::firstOrCreate(['name' => 'superadmin']);
 
-            // Update nilai status menjadi 1 di tabel users
-            $user->update(['status' => 1]);
+                // Assign the Super Admin role to the user
+                $user->assignRole($role);
 
-            $this->command->info('Role Super Admin berhasil diberikan ke User ID 1 dan status diperbarui menjadi 1');
-        } else {
-            $this->command->warn('User dengan ID 1 tidak ditemukan.');
+                // Update the status to 1 in the users table
+                $user->update(['status' => 1]);
+
+                $this->command->info("Role Super Admin berhasil diberikan ke User ID $id dan status diperbarui menjadi 1");
+            } else {
+                $this->command->warn("User dengan ID $id tidak ditemukan.");
+            }
         }
     }
 }
