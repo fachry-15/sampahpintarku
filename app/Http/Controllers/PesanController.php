@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +16,8 @@ class PesanController extends Controller
     public function index()
     {
         $pesan = Pesan::with(['user', 'balasan'])->get();
-        return view('pesan', compact('pesan'));
+        $petugas = User::role('petugas_sampah')->get();
+        return view('pesan', compact('pesan', 'petugas'));
     }
 
     /**
@@ -37,10 +39,8 @@ class PesanController extends Controller
             'lampiran' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'tanggal_mulai' => 'nullable|date|after_or_equal:today',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'phone_number' => ['required','regex:/^62[0-9]{9,13}$/', 'starts_with:62', 'min:12', 'max:15'],
         ]);
-
-
-        // dd($request->file('lampiran'));
 
         try {
             $pesan = new Pesan();
@@ -56,6 +56,35 @@ class PesanController extends Controller
                 $pesan->lampiran = $filename;
             }
             $pesan->save();
+
+            // Kirim pesan WhatsApp ke nomor dari input phone_number
+            try {
+                $token = env('FONNTE_TOKEN');
+                $target = $request->phone_number;
+                $userName = Auth::user()->name ?? 'Pengguna';
+                $message = "📢 *LAPORAN PESAN DARI WARGA*\n\n"
+                    . "👤 Dari: {$userName}\n"
+                    . "📝 Judul Laporan:\n*{$pesan->judul}*\n\n"
+                    . "💬 Isi Laporan:\n{$pesan->isi}\n\n"
+                    . "🌐 Untuk melihat informasi lengkap atau membalas laporan ini, silakan kunjungi pusat laporan di website TempatSampahku.\n\n"
+                    . "⏳ Segera berikan tanggapan Anda agar kami dapat memberikan pelayanan terbaik.\n"
+                    . "🙏 Terima kasih atas perhatian dan kerjasama Anda.";
+
+                $response = \Illuminate\Support\Facades\Http::withHeaders([
+                    'Authorization' => $token,
+                ])->post('https://api.fonnte.com/send', [
+                    'target' => $target,
+                    'message' => $message,
+                    'countryCode' => '62',
+                ]);
+
+                $result = $response->json();
+                if (!isset($result['status']) || $result['status'] !== true) {
+                    Log::warning('Gagal mengirim pesan WhatsApp: ' . json_encode($result));
+                }
+            } catch (\Exception $e) {
+                Log::error('Error saat mengirim pesan WhatsApp: ' . $e->getMessage());
+            }
 
             return redirect()->route('pesan.index')->with('success', 'Terima kasih, sudah melaporan tunggu hingga terdapat konfirmasi dari admin');
         } catch (\Exception $e) {

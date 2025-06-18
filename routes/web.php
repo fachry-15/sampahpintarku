@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GoogleAuthController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AccountsControllers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardControllers;
+use App\Http\Controllers\GatewayControllers;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\JadwalPengambilanController;
 use App\Http\Controllers\PesanController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\UsersController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/kirim-whatsapp', [GatewayControllers::class, 'sendMessage']);
 
 //Register Controllers
 Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
@@ -30,9 +33,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pesan', [PesanController::class, 'index'])->name('pesan.index');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [AccountsControllers::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [AccountsControllers::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [AccountsControllers::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/contact-admin', [ContactController::class, 'index'])->name('contact.index');
 

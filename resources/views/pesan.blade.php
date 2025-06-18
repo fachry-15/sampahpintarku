@@ -152,14 +152,29 @@
                                       Tanggal Mulai
                                     </label>
                                     <input type="date" id="tanggal-mulai" name="tanggal_mulai" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                    <small class="text-gray-500">* Tidak wajib diisi.</small>
                                   </div>
                                   <div>
                                     <label for="tanggal-akhir" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
                                       Tanggal Akhir
                                     </label>
                                     <input type="date" id="tanggal-akhir" name="tanggal_akhir" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                    <small class="text-gray-500">* Tidak wajib diisi.</small>
                                   </div>
                                 </div>
+                              </div>
+
+                              <!-- Pilih Petugas -->
+                              <div class="mt-4">
+                                <label for="petugas" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+                                  Pilih Petugas Sampah <small class="text-red-500">*</small>
+                                </label>
+                                <select id="petugas" name="phone_number" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400" required>
+                                  <option value="">-- Pilih Petugas --</option>
+                                  @foreach ($petugas as $p)
+                                    <option value="{{ $p->phone_number }}">{{ $p->name }} - {{ $p->phone_number}}</option>
+                                  @endforeach
+                                </select>
                               </div>
                           </div>
                           <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-gray-200 dark:border-neutral-700">
@@ -315,6 +330,58 @@
                           <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>  
                       </button>
+<button type="button" class="py-3 px-4 flex justify-center items-center size-11 text-sm font-medium rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 focus:outline-hidden focus:bg-green-700 disabled:opacity-50 disabled:pointer-events-none transition-colors duration-150" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-balas-modal-{{ $data->id }}" data-hs-overlay="#hs-balas-modal-{{ $data->id }}">
+<svg class="shrink-0 size-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 10v4a1 1 0 001 1h3m10-5V7a2 2 0 00-2-2H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2m3-5l-4-4m0 0l4 4m-4-4v12" />
+</svg>
+</button>
+
+<div id="hs-balas-modal-{{ $data->id }}" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-balas-modal-label-{{ $data->id }}">
+  <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:max-w-4xl lg:w-full m-3 lg:mx-auto">
+    <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+      <div class="flex justify-between items-center py-3 px-4 border-b border-gray-200 dark:border-neutral-700">
+        <h3 id="hs-balas-modal-label-{{ $data->id }}" class="font-bold text-gray-800 dark:text-white">
+          Form Balas Pesan
+        </h3>
+        <button type="button" class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600" aria-label="Close" data-hs-overlay="#hs-balas-modal-{{ $data->id }}">
+          <span class="sr-only">Close</span>
+          <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="p-4 overflow-y-auto">
+        <div class="mb-4">
+          <div class="mb-2">
+            <span class="font-semibold text-gray-700 dark:text-neutral-200">Judul:</span>
+            <span class="text-gray-800 dark:text-white">{{ $data->judul }}</span>
+          </div>
+            <div class="mb-2">
+            <span class="font-semibold text-gray-700 dark:text-neutral-200">Pesan:</span>
+            <span class="text-gray-800 dark:text-white break-words max-w-xl block">{{ $data->isi }}</span>
+            </div>
+          <div>
+            <span class="font-semibold text-gray-700 dark:text-neutral-200">Tanggal:</span>
+            @php
+              \Carbon\Carbon::setLocale('id');
+              $wibTime = $data->created_at->copy()->addHours(7);
+            @endphp
+            <span class="text-gray-800 dark:text-white">{{ $wibTime->translatedFormat('d M Y H:i') }} WIB</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-gray-200 dark:border-neutral-700">
+        <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-balas-modal-{{ $data->id }}">
+          Close
+        </button>
+        <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
                     </div>
                   </td>
                 </tr>

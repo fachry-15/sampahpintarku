@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\InformationsUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
 use Mckenziearts\Notify\LaravelNotify;
@@ -55,6 +56,9 @@ class UsersController extends Controller
                 'village' => $request->village,
             ]);
 
+            // Kirim WhatsApp ke nomor user
+            $this->sendWaActivation($user->phone_number);
+
             return redirect()->route('user.index')->with('notify', [
                 'type' => 'success',
                 'message' => 'Terima kasih, aktivasi user berhasil diaktivasi.',
@@ -65,6 +69,40 @@ class UsersController extends Controller
                 'type' => 'error',
                 'message' => 'Terjadi kesalahan saat memperbarui aktivasi user.',
             ]);
+        }
+    }
+
+    protected function sendWaActivation($target)
+    {
+        $token = env('FONNTE_TOKEN');
+        if (!$token || !$target) {
+            Log::warning('FONNTE_TOKEN or target phone number is missing.');
+            return;
+        }
+
+        $target = preg_replace('/[^0-9]/', '', $target);
+
+        $message = "*[Pesan dari Admin Sampah Pintar]*\n\n";
+        $message .= "Selamat! Akun Anda telah berhasil diaktivasi di Sampah Pintar.\n\n";
+        $message .= "Silakan login untuk mulai menggunakan layanan kami.\n\n";
+        $message .= "Terima kasih atas kepercayaan Anda.\n\n";
+        $message .= "Salam,\nAdmin Sampah Pintar";
+
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => $token,
+            ])->post('https://api.fonnte.com/send', [
+                'target' => $target,
+                'message' => $message,
+                'countryCode' => '62',
+            ]);
+
+            $result = $response->json();
+            if (!isset($result['status']) || $result['status'] !== true) {
+                Log::warning('Gagal mengirim WhatsApp: ' . json_encode($result));
+            }
+        } catch (\Exception $e) {
+            Log::error('Exception saat mengirim WhatsApp: ' . $e->getMessage());
         }
     }
 
