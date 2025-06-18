@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Balasan;
+use App\Models\Pesan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BalasanController extends Controller
 {
@@ -28,7 +31,41 @@ class BalasanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validated = $request->validate([
+                'pesan_id' => 'required|exists:pesans,id',
+                'balasan_isi' => 'required|string',
+                'status' => 'required|in:0,1,2',
+            ]);
+
+            $data = [
+                'pesan_id' => $validated['pesan_id'],
+                'user_id' => Auth::id(),
+                'isi' => $validated['balasan_isi'],
+                'status' => $validated['status'],
+            ];
+
+            $balasan = Balasan::create($data);
+
+            // Update status pada tabel pesan sesuai pesan_id
+            Pesan::where('id', $validated['pesan_id'])
+                ->update(['status' => $validated['status']]);
+
+            return redirect()->back()->with('notify', [
+                'type' => 'success',
+                'message' => 'Balasan berhasil dikirim!',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Gagal mengirim balasan: ' . $e->getMessage(), [
+                'exception' => $e,
+                'user_id' => Auth::id(),
+                'request' => $request->all(),
+            ]);
+            return redirect()->back()->with('notify', [
+                'type' => 'danger',
+                'message' => 'Terjadi kesalahan saat mengirim balasan.',
+            ]);
+        }
     }
 
     /**

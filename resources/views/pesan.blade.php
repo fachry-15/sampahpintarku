@@ -353,32 +353,76 @@
       </div>
       <div class="p-4 overflow-y-auto">
         <div class="mb-4">
-          <div class="mb-2">
-            <span class="font-semibold text-gray-700 dark:text-neutral-200">Judul:</span>
-            <span class="text-gray-800 dark:text-white">{{ $data->judul }}</span>
-          </div>
-            <div class="mb-2">
-            <span class="font-semibold text-gray-700 dark:text-neutral-200">Pesan:</span>
-            <span class="text-gray-800 dark:text-white break-words max-w-xl block">{{ $data->isi }}</span>
+          <div class="mb-4">
+            <div class="bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 rounded-lg p-4 flex flex-col sm:flex-row gap-4 items-start">
+              <div class="flex-shrink-0 flex flex-col items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold text-xl">
+                  {{ Str::upper(Str::substr($data->user->name ?? 'U', 0, 1)) }}
+                </div>
+                <span class="mt-2 text-xs text-gray-500 dark:text-neutral-400">Pengirim</span>
+              </div>
+              <div class="flex-1">
+                <div class="mb-1 flex flex-wrap items-center gap-2">
+                  <span class="font-semibold text-gray-700 dark:text-neutral-200">Nama:</span>
+                  <span class="text-gray-800 dark:text-white">{{ $data->user->name ?? '-' }}</span>
+                  <span class="mx-2 text-gray-400">|</span>
+                  <span class="font-semibold text-gray-700 dark:text-neutral-200">No. HP:</span>
+                  <span class="text-gray-800 dark:text-white">{{ $data->user->phone_number ?? '-' }}</span>
+                </div>
+                <div class="mb-2">
+                  <span class="font-semibold text-gray-700 dark:text-neutral-200">Judul:</span>
+                  <span class="text-gray-800 dark:text-white">{{ $data->judul }}</span>
+                </div>
+                <div class="mb-2">
+                  <span class="font-semibold text-gray-700 dark:text-neutral-200">Pesan:</span>
+                  <span class="text-gray-800 dark:text-white break-words max-w-xl block">{{ $data->isi }}</span>
+                </div>
+                <div>
+                  <span class="font-semibold text-gray-700 dark:text-neutral-200">Tanggal:</span>
+                  @php
+                    \Carbon\Carbon::setLocale('id');
+                    $wibTime = $data->created_at->copy()->addHours(7);
+                  @endphp
+                  <span class="text-gray-800 dark:text-white">{{ $wibTime->translatedFormat('d M Y H:i') }} WIB</span>
+                </div>
+              </div>
             </div>
-          <div>
-            <span class="font-semibold text-gray-700 dark:text-neutral-200">Tanggal:</span>
-            @php
-              \Carbon\Carbon::setLocale('id');
-              $wibTime = $data->created_at->copy()->addHours(7);
-            @endphp
-            <span class="text-gray-800 dark:text-white">{{ $wibTime->translatedFormat('d M Y H:i') }} WIB</span>
           </div>
-        </div>
-      </div>
-      <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-gray-200 dark:border-neutral-700">
-        <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-balas-modal-{{ $data->id }}">
-          Close
-        </button>
-        <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-          Save changes
-        </button>
-      </div>
+        <form action="{{ route('balasan.store') }}" method="POST" class="space-y-6 mt-4">
+          @csrf
+          <input type="text" name="pesan_id" value="{{ $data->id }}" hidden>
+          <div>
+            <label for="balasan-isi-{{ $data->id }}" class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-2">
+              Balasan Pesan <small class="text-red-500">*</small>
+            </label>
+            <textarea id="balasan-isi-{{ $data->id }}" name="balasan_isi" rows="4" required
+              class="block w-full border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200 transition duration-150 ease-in-out"
+              placeholder="Tulis balasan Anda di sini..."></textarea>
+          </div>
+          <div>
+            <label for="balasan-status-{{ $data->id }}" class="block text-sm font-medium text-gray-700 dark:text-neutral-300 mb-2">
+              Status Pesan <small class="text-red-500">*</small>
+            </label>
+            <select id="balasan-status-{{ $data->id }}" name="status" required
+              class="block w-full border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200 transition duration-150 ease-in-out">
+              <option value="">-- Pilih Status --</option>
+              <option value="1" class="bg-teal-100 text-teal-800 dark:bg-teal-500/10 dark:text-teal-400">Selesai</option>
+              <option value="2" class="bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-400">Ditolak</option>
+              <option value="0" class="bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-400">Menunggu</option>
+            </select>
+          </div>
+          <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-gray-200 dark:border-neutral-700">
+            <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-overlay="#hs-balas-modal-{{ $data->id }}">
+              Tutup
+            </button>
+            <button type="submit" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 focus:outline-hidden focus:bg-green-700 disabled:opacity-50 disabled:pointer-events-none transition-colors duration-150">
+               Kirim Balasan
+              <svg class="shrink-0 size-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+              </svg>             
+            </button>
+          </div>
+        </form>
     </div>
   </div>
 </div>

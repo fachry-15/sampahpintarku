@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\AccountsControllers;
+use App\Http\Controllers\BalasanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardControllers;
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['role:petugas_sampah']], function () {});
 
 Route::group(['middleware' => ['role:warga|superadmin']], function () {
     Route::post('/pesan', [PesanController::class, 'store'])->name('pesan.store');
+    Route::post('/balasan', [BalasanController::class, 'store'])->name('balasan.store');
 });
 
 require __DIR__ . '/auth.php';
